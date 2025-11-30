@@ -2,7 +2,7 @@ import { ArrowButton } from 'src/ui/arrow-button';
 import { Button } from 'src/ui/button';
 import { useState, useRef } from 'react';
 import { fontFamilyOptions, fontSizeOptions, fontColors, backgroundColors, contentWidthArr, defaultArticleState, OptionType } from 'src/constants/articleProps';
-
+import clsx from "clsx";
 import styles from './ArticleParamsForm.module.scss';
 import { Select } from 'src/ui/select';
 import { RadioGroup } from 'src/ui/radio-group';
@@ -89,47 +89,48 @@ export const ArticleParamsForm = ( props: TArticleParamsForm ) => {
 	return (
 		<>
 			<ArrowButton isOpen={isOpen} onClick={toggle} />
-			<aside className={`${isOpen ? styles.container_open : ''} ${styles.container}`} ref={asideRef}>
+			<aside className={clsx(styles.container, {
+    			[styles.container_open]: isOpen,
+  				})}
+				ref={asideRef}>
 				<form className={styles.form} onSubmit={handleSubmit}>
-					<>
-						<Text size={31} weight={800} uppercase={true}>Задайте параметры</Text>
-						<Select
-							title={'Шрифт'}
-							selected={localFont}
-							options={fontFamilyOptions}
-							onChange={fontChange}>
-						</Select>
-						<RadioGroup
-							name={'Размер шрифта'}
-							title={'Размер шрифта'}
-							selected={localFontSize}
-							options={fontSizeOptions}
-							onChange={fontSizeChange}>
-						</RadioGroup>
-						<Select
-							title={'Цвет шрифта'}
-							selected={localFontColor}
-							options={fontColors}
-							onChange={fontColorChange}>
-						</Select>
-						<Separator />
-						<Select
-							title={'Цвет фона'}
-							selected={localBackgroundColor}
-							options={backgroundColors}
-							onChange={backgroundColorChange}>
-						</Select>
-						<Select
-							title={'Ширина контента'}
-							selected={localContentWidth}
-							options={contentWidthArr}
-							onChange={contentWidthChange}>
-						</Select>
-						<div className={styles.bottomContainer}>
-							<Button title='Сбросить' htmlType='reset' type='clear' onClick={formReset} />
-							<Button title='Применить' htmlType='submit' type='apply' />
-						</div>
-					</>
+					<Text size={31} weight={800} uppercase={true}>Задайте параметры</Text>
+					<Select
+						title={'Шрифт'}
+						selected={localFont}
+						options={fontFamilyOptions}
+						onChange={fontChange}>
+					</Select>
+					<RadioGroup
+						name={'Размер шрифта'}
+						title={'Размер шрифта'}
+						selected={localFontSize}
+						options={fontSizeOptions}
+						onChange={fontSizeChange}>
+					</RadioGroup>
+					<Select
+						title={'Цвет шрифта'}
+						selected={localFontColor}
+						options={fontColors}
+						onChange={fontColorChange}>
+					</Select>
+					<Separator />
+					<Select
+						title={'Цвет фона'}
+						selected={localBackgroundColor}
+						options={backgroundColors}
+						onChange={backgroundColorChange}>
+					</Select>
+					<Select
+						title={'Ширина контента'}
+						selected={localContentWidth}
+						options={contentWidthArr}
+						onChange={contentWidthChange}>
+					</Select>
+					<div className={styles.bottomContainer}>
+						<Button title='Сбросить' htmlType='reset' type='clear' onClick={formReset} />
+						<Button title='Применить' htmlType='submit' type='apply' />
+					</div>
 				</form>
 			</aside>
 		</>
